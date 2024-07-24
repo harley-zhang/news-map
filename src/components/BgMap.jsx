@@ -1,3 +1,4 @@
+import React from 'react';
 import DeckGL from '@deck.gl/react';
 import { GeoJsonLayer } from '@deck.gl/layers';
 import { Map } from 'react-map-gl';
@@ -17,30 +18,28 @@ const INITIAL_VIEW_STATE = {
 
 const BgMap = ({ showLayer }) => {
   const layers = [
-    // Only display 'sample-data' layer for Tab 1
-    ...(showLayer === 'tab1' || showLayer === 'all' ? [
-      new GeoJsonLayer({
-        id: 'sample-data',
-        data: SAMPLE_DATA,
-        filled: true,
-        stroked: true,
-        pointRadiusMinPixels: 5,
-        pointRadiusScale: 10,
-        getPointRadius: f => 5,
-        getFillColor: [255, 0, 0], // red
-        pickable: true,
-        autoHighlight: true,
-      })
-    ] : []),
-      new GeoJsonLayer({
-        id: 'ztca',
-        data: ZIP_SHAPEFILES,
-        filled: false,
-        stroked: true,
-        lineWidthMinPixels: 1,
-        getLineColor: [112, 112, 112], // grey
-        getLineWidth: 2,
-      }),
+    new GeoJsonLayer({
+      id: 'ztca',
+      data: ZIP_SHAPEFILES,
+      filled: false,
+      stroked: true,
+      lineWidthMinPixels: 1,
+      getLineColor: [112, 112, 112], // grey
+      getLineWidth: 2,
+    }),
+    new GeoJsonLayer({
+      id: 'sample-data',
+      data: SAMPLE_DATA,
+      filled: true,
+      stroked: true,
+      pointRadiusMinPixels: 5,
+      pointRadiusScale: 2000,
+      getPointRadius: f => 0,
+      getFillColor: [255, 0, 0], // red
+      pickable: true,
+      autoHighlight: true,
+      visible: showLayer === 'tab1',
+    }),
   ];
 
   return (
