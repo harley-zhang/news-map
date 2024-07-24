@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import Home from "./pages/Home";
+import Home from "./Home";
 
 function App() {
   return (
