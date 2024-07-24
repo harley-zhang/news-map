@@ -1,11 +1,12 @@
-import BgMap from "./components/BgMap";
+import React from 'react';
+import TabSwitch from './components/TabSwitch';
 
 function Home() {
-    return (
-        <>
-            <BgMap />
-        </>
-    );
+  return (
+    <>
+      <TabSwitch />
+    </>
+  );
 };
 
 export default Home;

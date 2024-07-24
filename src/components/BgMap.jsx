@@ -2,6 +2,7 @@ import DeckGL from '@deck.gl/react';
 import { GeoJsonLayer } from '@deck.gl/layers';
 import { Map } from 'react-map-gl';
 import ZIP_SHAPEFILES from "../assets/nyc_ztca.json";
+import SAMPLE_DATA from "../assets/sample_data.json";
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGFybGV5emhhbmciLCJhIjoiY2x5ejBmeGwxMHMzNzJpb3JwYjhhYzV2NiJ9.mJ4BLWUqkmS4yyV1pg9H-w";
 const MAP_STYLE = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json";
@@ -14,17 +15,32 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
 };
 
-const BgMap = () => {
+const BgMap = ({ showLayer }) => {
   const layers = [
-    new GeoJsonLayer({
-      id: 'geojson-layer',
-      data: ZIP_SHAPEFILES,
-      filled: false,
-      stroked: true,
-      lineWidthMinPixels: 1,
-      getLineColor: [112, 112, 112],
-      getLineWidth: 2,
-    }),
+    // Only display 'sample-data' layer for Tab 1
+    ...(showLayer === 'tab1' || showLayer === 'all' ? [
+      new GeoJsonLayer({
+        id: 'sample-data',
+        data: SAMPLE_DATA,
+        filled: true,
+        stroked: true,
+        pointRadiusMinPixels: 5,
+        pointRadiusScale: 10,
+        getPointRadius: f => 5,
+        getFillColor: [255, 0, 0], // red
+        pickable: true,
+        autoHighlight: true,
+      })
+    ] : []),
+      new GeoJsonLayer({
+        id: 'ztca',
+        data: ZIP_SHAPEFILES,
+        filled: false,
+        stroked: true,
+        lineWidthMinPixels: 1,
+        getLineColor: [112, 112, 112], // grey
+        getLineWidth: 2,
+      }),
   ];
 
   return (
