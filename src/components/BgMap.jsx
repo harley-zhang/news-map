@@ -2,7 +2,7 @@ import React from 'react';
 import DeckGL from '@deck.gl/react';
 import { GeoJsonLayer } from '@deck.gl/layers';
 import { Map } from 'react-map-gl';
-import ZIP_SHAPEFILES from "../assets/nyc_ztca.json";
+import ZIP_SHAPEFILES from "../assets/filtered_zcta_2020.json";
 import SAMPLE_DATA from "../assets/sample_data.json";
 
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGFybGV5emhhbmciLCJhIjoiY2x5ejBmeGwxMHMzNzJpb3JwYjhhYzV2NiJ9.mJ4BLWUqkmS4yyV1pg9H-w";
