@@ -6,8 +6,8 @@ import ZIP_SHAPEFILES from "../assets/filtered_zcta_2020.json";
 import SAMPLE_DATA from "../assets/locations_20240804_213851.geojson";
 import CSV_DATA from "../assets/sample_article_output.csv"; // Adjust the path if necessary
 
-const MAPBOX_ACCESS_TOKEN = "your-mapbox-access-token";
-const MAP_STYLE = "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json";
+const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiaGFybGV5emhhbmciLCJhIjoiY2x5ejBmeGwxMHMzNzJpb3JwYjhhYzV2NiJ9.mJ4BLWUqkmS4yyV1pg9H-w";
+const MAP_STYLE = "mapbox://styles/mapbox/light-v11";
 
 const INITIAL_VIEW_STATE = {
   latitude: 40.697488,
