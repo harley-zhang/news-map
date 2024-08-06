@@ -54,7 +54,7 @@ const BgMap = ({ showLayer }) => {
       data: SAMPLE_DATA,
       filled: true,
       stroked: true,
-      pointRadiusMinPixels: 5,
+      pointRadiusMinPixels: 7,
       pointRadiusScale: 2000,
       getPointRadius: f => 0,
       getFillColor: [255, 0, 0],
@@ -72,29 +72,30 @@ const BgMap = ({ showLayer }) => {
   ];
 
   return (
-    <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      controller={true}
-      layers={layers}
-      style={{ position: 'absolute', width: '100%', height: '100%' }}
-    >
-      <Map 
-        mapStyle={MAP_STYLE} 
-        mapboxAccessToken={MAPBOX_ACCESS_TOKEN} 
+    <>
+      <DeckGL
+        initialViewState={INITIAL_VIEW_STATE}
+        controller={true}
+        layers={layers}
         style={{ position: 'absolute', width: '100%', height: '100%' }}
       >
-        {popupInfo && (
-          <div className="fixed right-5 bottom-5 p-4 bg-white shadow-md rounded-lg z-30 w-[300px]">
-            <h3 className="text-lg font-semibold mb-2">Headlines</h3>
-            <ul>
-              {popupInfo.headlines.map((headline, index) => (
-                <li key={index} className="mt-4">{headline}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </Map>
-    </DeckGL>
+        <Map
+          mapStyle={MAP_STYLE}
+          mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
+          style={{ position: 'absolute', width: '100%', height: '100%' }}
+        />
+      </DeckGL>
+      {popupInfo && (
+        <div className="fixed right-5 bottom-5 p-4 bg-white shadow-md rounded-lg z-30 w-[300px]">
+          <h3 className="text-lg font-semibold mb-2">Headlines</h3>
+          <ul>
+            {popupInfo.headlines.map((headline, index) => (
+              <li key={index} className="mt-4">{headline}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 
