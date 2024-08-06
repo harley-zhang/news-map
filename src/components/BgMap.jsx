@@ -57,7 +57,7 @@ const BgMap = ({ showLayer }) => {
       pointRadiusMinPixels: 7,
       pointRadiusScale: 2000,
       getPointRadius: f => 0,
-      getFillColor: [255, 0, 0],
+      getFillColor: [80, 139, 250],
       pickable: true,
       autoHighlight: true,
       visible: showLayer === 'tab1',
