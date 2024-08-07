@@ -7,12 +7,12 @@ const TabSwitch = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <BgMap showLayer="tab1" />;
+        return <BgMap showLayer="all" />;
       case 'tab2':
-        return <BgMap showLayer="tab2" />;
+        return <BgMap showLayer="ztca" />;
       case 'tab3':
         return (
-          <div className="bg-white h-full flex justify-center items-center">
+          <div className="bg-white h-full flex justify-center items-center z-30">
             <p>Lorem Ipsum</p>
           </div>
         );
@@ -23,7 +23,7 @@ const TabSwitch = () => {
 
   return (
     <div className="relative h-full">
-      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-10 bg-white rounded-full shadow-md p-2 flex items-center text-sm">
+      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-40 bg-white rounded-full shadow-md p-2 flex items-center text-sm">
         <div className="flex space-x-4">
           <button
             onClick={() => setActiveTab('tab1')}
