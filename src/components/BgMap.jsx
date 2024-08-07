@@ -11,7 +11,7 @@ const MAP_STYLE = 'mapbox://styles/mapbox/light-v11';
 
 const INITIAL_VIEW_STATE = {
   latitude: 40.697488,
-  longitude: -73.979681,
+  longitude: -74.08,
   zoom: 10,
   bearing: 0,
   pitch: 0,
@@ -27,11 +27,6 @@ const parseCSV = (csvText) => {
 };
 
 const BgMap = ({ showLayer }) => {
-  const [viewport, setViewport] = useState({
-    longitude: -70,
-    latitude: 40.75,
-    zoom: 3.5,
-  });
   const [csvData, setCsvData] = useState({});
   const [hoverPopupInfo, setHoverPopupInfo] = useState(null);
   const [clickPopupInfo, setClickPopupInfo] = useState(null);
@@ -71,7 +66,6 @@ const BgMap = ({ showLayer }) => {
         style={{ width: '100%', height: '100%' }}
         mapStyle={MAP_STYLE}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
         interactiveLayerIds={['sample-layer']}
         onMouseEnter={(event) => {
           const { features } = event;
