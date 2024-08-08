@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Map, { Source, Layer, Popup, NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -30,6 +30,7 @@ const BgMap = ({ showLayer }) => {
   const [csvData, setCsvData] = useState({});
   const [hoverPopupInfo, setHoverPopupInfo] = useState(null);
   const [clickPopupInfo, setClickPopupInfo] = useState(null);
+  const [cursor, setCursor] = useState('auto');
 
   useEffect(() => {
     fetch(CSV_DATA)
@@ -59,6 +60,30 @@ const BgMap = ({ showLayer }) => {
     }));
   };
 
+  const handleMouseEnter = useCallback((event) => {
+    const { features } = event;
+    if (features.length > 0) {
+      const feature = features[0];
+      const coordinates = feature.geometry.coordinates;
+      const articleIDs = feature.properties.articleIDs;
+
+      if (clickPopupInfo &&
+        clickPopupInfo.coordinates[0] === coordinates[0] &&
+        clickPopupInfo.coordinates[1] === coordinates[1]) {
+        return; // Do not show hover popup
+      }
+
+      const popupContent = getHeadlines(articleIDs);
+      setHoverPopupInfo({ coordinates, content: popupContent });
+      setCursor('pointer');
+    }
+  }, [clickPopupInfo, csvData]);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoverPopupInfo(null);
+    setCursor('auto');
+  }, []);
+
   return (
     <div className="map-container">
       <Map
@@ -67,24 +92,9 @@ const BgMap = ({ showLayer }) => {
         mapStyle={MAP_STYLE}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         interactiveLayerIds={['sample-layer']}
-        onMouseEnter={(event) => {
-          const { features } = event;
-          if (features.length > 0) {
-            const feature = features[0];
-            const coordinates = feature.geometry.coordinates;
-            const articleIDs = feature.properties.articleIDs;
-
-            if (clickPopupInfo &&
-              clickPopupInfo.coordinates[0] === coordinates[0] &&
-              clickPopupInfo.coordinates[1] === coordinates[1]) {
-              return; // Do not show hover popup
-            }
-
-            const popupContent = getHeadlines(articleIDs);
-            setHoverPopupInfo({ coordinates, content: popupContent });
-          }
-        }}
-        onMouseLeave={() => setHoverPopupInfo(null)}
+        cursor={cursor}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onClick={(event) => {
           const { features } = event;
           if (features.length > 0) {
@@ -155,7 +165,7 @@ const BgMap = ({ showLayer }) => {
             closeOnClick={false}
             anchor="bottom"
             onClose={() => setClickPopupInfo(null)}
-            className="custom-popup" // ***** Add custom class for styling
+            className="custom-popup"
           >
             <div className="pt-3">
               {clickPopupInfo.content.map((item) => (
