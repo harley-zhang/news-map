@@ -15,3 +15,4 @@
 { "type": "Feature", "properties": { "locationName": "Manhattan", "geographyType": "N/A", "modifier": "N/A", "apiID": "ChIJYeZuBI9YwokRjMDs_IEyCwo", "type": "N/A", "latitude": 40.78306, "longitude": -73.971249, "locationType": "APPROXIMATE", "partialMatch": false, "articleIDs": "6,8", "topics": { "topic": "Government & Politics", "probability": 0.9 } }, "geometry": { "type": "Point", "coordinates": [ -73.971249, 40.78306 ] } }
 ]
 }
+ 
