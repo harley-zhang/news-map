@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Map, { Source, Layer, Popup, NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import ZTCA from '../assets/filtered_zcta_2020.json';
+import ZCTA from '../assets/filtered_zcta_2020.json';
 import SAMPLE_DATA from '../assets/locations_20240821_104317.geojson';
+import AGGREGATED_DATA from '../assets/aggregated_locations.geojson';
 import CSV_DATA from '../assets/sample_article_output.csv';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGFybGV5emhhbmciLCJhIjoiY2x5ejBmeGwxMHMzNzJpb3JwYjhhYzV2NiJ9.mJ4BLWUqkmS4yyV1pg9H-w';
@@ -112,11 +113,11 @@ const BgMap = ({ showLayer }) => {
         <GeolocateControl position="top-right" />
         <FullscreenControl position="top-right" />
         <NavigationControl position="top-right" />
-        {showLayer === 'all' && (
+        {showLayer === 'sample-data' && (
           <>
-            <Source id="ztca" type="geojson" data={ZTCA}>
+            <Source id="zcta" type="geojson" data={ZCTA}>
               <Layer
-                id="ztca-layer"
+                id="zcta-layer"
                 type="line"
                 paint={{
                   'line-color': '#888888',
@@ -136,17 +137,29 @@ const BgMap = ({ showLayer }) => {
             </Source>
           </>
         )}
-        {showLayer === 'ztca' && (
-          <Source id="ztca" type="geojson" data={ZTCA}>
-            <Layer
-              id="ztca-layer"
-              type="line"
-              paint={{
-                'line-color': '#888888',
-                'line-width': 0.5,
-              }}
-            />
-          </Source>
+        {showLayer === 'aggregated-data' && (
+          <>
+            <Source id="zcta" type="geojson" data={ZCTA}>
+              <Layer
+                id="zcta-layer"
+                type="line"
+                paint={{
+                  'line-color': '#888888',
+                  'line-width': 0.5,
+                }}
+              />
+            </Source>
+            <Source id="zcta" type="geojson" data={AGGREGATED_DATA}>
+              <Layer
+                id="zcta-layer"
+                type="line"
+                paint={{
+                  'line-color': '#888888',
+                  'line-width': 0.5,
+                }}
+              />
+            </Source>
+          </>
         )}
         {hoverPopupInfo && (
           <Popup

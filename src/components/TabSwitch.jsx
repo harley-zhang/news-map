@@ -7,9 +7,9 @@ const TabSwitch = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <BgMap showLayer="all" />;
+        return <BgMap showLayer="sample-data" />;
       case 'tab2':
-        return <BgMap showLayer="ztca" />;
+        return <BgMap showLayer="aggregated-data" />;
       case 'tab3':
         return (
           <div className="bg-white h-full flex justify-center items-center z-30">
