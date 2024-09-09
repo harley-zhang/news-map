@@ -3,6 +3,7 @@
 <div>
   <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
   <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"/>
+  <img src="https://img.shields.io/badge/deck.gl-000000?style=for-the-badge&logo=Uber&logoColor=white"/>
   <img src="https://img.shields.io/badge/Mapbox-000000?style=for-the-badge&logo=Mapbox&logoColor=white"/>
   <img src="https://img.shields.io/badge/HuggingFace-FDEE21?style=for-the-badge&logo=HuggingFace&logoColor=black"/>
  <br><br>
