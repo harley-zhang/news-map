@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import ZCTA from '../assets/filtered_zcta_2020.json';
 import SAMPLE_DATA from '../assets/locations_20240821_104317.geojson';
+import AGGREGATED_DATA from '../assets/aggregated_locations.geojson';
 import CSV_DATA from '../assets/sample_article_output.csv';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGFybGV5emhhbmciLCJhIjoiY2x5ejBmeGwxMHMzNzJpb3JwYjhhYzV2NiJ9.mJ4BLWUqkmS4yyV1pg9H-w';
@@ -52,6 +53,10 @@ const BgMap = ({ showLayer }) => {
     }
   };
 
+  const getArticleCount = (articleIDs) => {
+    return articleIDs.length; // Count of articles
+  };
+
   const getClickPopupContent = (articleIDs) => {
     const ids = articleIDs.split(',').map(id => id.trim());
     return ids.map(id => ({
@@ -91,7 +96,7 @@ const BgMap = ({ showLayer }) => {
         style={{ width: '100%', height: '100%' }}
         mapStyle={MAP_STYLE}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
-        interactiveLayerIds={['sample-layer']}
+        interactiveLayerIds={['sample-layer', 'aggregated-layer']}
         cursor={cursor}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -112,18 +117,18 @@ const BgMap = ({ showLayer }) => {
         <GeolocateControl position="top-right" />
         <FullscreenControl position="top-right" />
         <NavigationControl position="top-right" />
+        <Source id="zcta" type="geojson" data={ZCTA}>
+          <Layer
+            id="zcta-layer"
+            type="line"
+            paint={{
+              'line-color': '#888888',
+              'line-width': 0.5,
+            }}
+          />
+        </Source>
         {showLayer === 'sample-data' && (
           <>
-            <Source id="zcta" type="geojson" data={ZCTA}>
-              <Layer
-                id="zcta-layer"
-                type="line"
-                paint={{
-                  'line-color': '#888888',
-                  'line-width': 0.5,
-                }}
-              />
-            </Source>
             <Source id="sample-data" type="geojson" data={SAMPLE_DATA}>
               <Layer
                 id="sample-layer"
@@ -138,19 +143,19 @@ const BgMap = ({ showLayer }) => {
         )}
         {showLayer === 'aggregated-data' && (
           <>
-            <Source id="zcta" type="geojson" data={ZCTA}>
+            <Source id="aggregated-data" type="geojson" data={AGGREGATED_DATA}>
               <Layer
-                id="zcta-layer"
-                type="line"
+                id="aggregated-layer"
+                type="fill"
                 paint={{
-                  'line-color': '#888888',
-                  'line-width': 0.5,
+                  'fill-color': '#ff5722', // Random color for fill
+                  'fill-opacity': 0.6,
                 }}
               />
             </Source>
           </>
         )}
-        {hoverPopupInfo && (
+        {hoverPopupInfo && showLayer === 'sample-data' && (
           <Popup
             latitude={hoverPopupInfo.coordinates[1]}
             longitude={hoverPopupInfo.coordinates[0]}
@@ -160,7 +165,7 @@ const BgMap = ({ showLayer }) => {
             <div>{hoverPopupInfo.content}</div>
           </Popup>
         )}
-        {clickPopupInfo && (
+        {clickPopupInfo && showLayer === 'sample-data' && (
           <Popup
             latitude={clickPopupInfo.coordinates[1]}
             longitude={clickPopupInfo.coordinates[0]}
