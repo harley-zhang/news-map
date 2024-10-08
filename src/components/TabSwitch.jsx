@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BgMap from './BgMap_sand';
+import BgMap from './BgMap';
 
 const TabSwitch = () => {
   const [activeTab, setActiveTab] = useState('tab1');
